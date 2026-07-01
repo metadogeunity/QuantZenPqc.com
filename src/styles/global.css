@@ -92,14 +92,14 @@
 
   /* Eyebrow label — the short rule before the uppercase text,
      kept as raw CSS because it relies on a ::before pseudo-element. */
-  .eyebrow::before {
-    content: "";
-    width: 18px;
-    height: 1px;
-    background: var(--color-blue);
-    display: inline-block;
-    opacity: 0.7;
-  }
+.eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--color-blue);
+  display: inline-block;
+  opacity: 0.7;
+}
 }
 
 @media (prefers-reduced-motion: reduce) {
