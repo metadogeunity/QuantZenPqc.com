@@ -433,8 +433,7 @@ export default function Home() {
     <QtoZSection />
     <AtomDivider from="#ffffff" to="#ffffff" />
     <NewsletterSection />
-    <AtomDivider from="#ffffff" to="#ffffff" />
-    <QDayCountdownSection />
+     <AtomDivider from="#ffffff" to="#ffffff" />
     {/* <div className="mb-14 flex flex-col items-center text-center">
              <span className="font-mono text-[11px] tracking-[0.22em] uppercase text-indigo-500">
                Why teams choose QuantZen

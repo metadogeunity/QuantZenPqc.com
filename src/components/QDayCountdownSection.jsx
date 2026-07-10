@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 
 const Q_DAY_TARGET = new Date("2030-01-01T00:00:00Z");
@@ -58,7 +59,6 @@ function Hourglass() {
             <stop offset="100%" stopColor="#6366f1" />
           </linearGradient>
 
-          {/* Curved bulb clip paths */}
           <clipPath id="topClipCurve">
             <path d="M9 7
                      C9 18, 14 26, 26 34
@@ -74,11 +74,9 @@ function Hourglass() {
           </clipPath>
         </defs>
 
-        {/* Wood-style caps */}
         <rect x="4" y="2" width="44" height="5" rx="2.5" fill="url(#frameGradBlue)" />
         <rect x="4" y="65" width="44" height="5" rx="2.5" fill="url(#frameGradBlue)" />
 
-        {/* Curved glass outline - static */}
         <path
           d="M9 7
              C9 18, 14 26, 26 34
@@ -98,17 +96,14 @@ function Hourglass() {
           fill="rgba(99,102,241,0.05)"
         />
 
-        {/* Top sand - drains, clipped to curved bulb */}
         <g clipPath="url(#topClipCurve)">
           <rect className="qz-top-sand" x="9" y="9" width="34" height="26" fill="url(#sandGradBlue)" />
         </g>
 
-        {/* Bottom sand - fills, clipped to curved bulb */}
         <g clipPath="url(#bottomClipCurve)">
           <rect className="qz-bottom-sand" x="9" y="36" width="34" height="29" fill="url(#sandGradBlue)" />
         </g>
 
-        {/* Flowing stream + drop through the neck */}
         <rect className="qz-stream" x="25" y="32" width="2" height="10" fill="#7dd3fc" />
         <circle className="qz-drop" cx="26" cy="34" r="1.6" fill="#7dd3fc" />
       </svg>
@@ -141,7 +136,7 @@ export default function QDayCountdownSection() {
   }, []);
 
   return (
-    <section className="relative left-1/2 w-screen -translate-x-1/2 overflow-hidden bg-white py-24">
+        <div className="relative overflow-hidden pt-2 pb-12">
       <div
         className="pointer-events-none absolute left-1/2 top-0 h-[420px] w-[820px] -translate-x-1/2 -translate-y-1/3 rounded-full blur-3xl"
         style={{ background: "radial-gradient(closest-side, rgba(99,102,241,0.14), rgba(186,230,253,0.2), transparent)" }}
@@ -173,7 +168,10 @@ export default function QDayCountdownSection() {
             <TimeBox value={time.seconds} label="Seconds" />
           </div>
         </div>
+       
       </div>
-    </section>
+    </div>
+  
+
   );
 }

@@ -6,4 +6,5 @@ export const navLinks = [
   { path: "/deployment", label: "Deployment" },
   { path: "/press", label: "Press" },
   { path: "/about", label: "About" },
+  { path: "/whynot", label: "WhyNot" }
 ];

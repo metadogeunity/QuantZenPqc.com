@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Mail } from "lucide-react";
-
 export default function NewsletterSection() {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState("idle");
@@ -118,7 +117,9 @@ export default function NewsletterSection() {
             </p>
           </div>
         </div>
+       
       </div>
+      
     </section>
   );
 }
