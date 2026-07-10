@@ -27,7 +27,7 @@ export default function UseCases() {
             <p className="mt-4.5 max-w-[680px] text-lg text-muted">
               Anywhere critical data crosses an API, QuantZen protects it
               against tampering today and quantum decryption tomorrow. Each
-              environment, the same drop-in model.
+              environment, the same drop in model.
             </p>
           </div>
 

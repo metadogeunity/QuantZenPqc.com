@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useRef } from "react";
+import { Fragment, useEffect, useMemo, useRef } from "react";
 
 const defaultNodes = [
   { id: "app",     title: "Your App",     detail: "client · service", label: "No changes needed", icon: "ti-device-laptop", highlight: false },
@@ -40,6 +40,17 @@ export default function ArchDiagram({ nodes: nodesProp }) {
     return () => clearTimeout(t);
   }, [nodes]);
 
+  // Build "1fr auto 1fr auto ... 1fr" so every node column is an equal
+  // fraction of the row, and every arrow column just hugs its own content.
+  const gridTemplateColumns = useMemo(() => {
+    const cols = [];
+    nodes.forEach((_, i) => {
+      cols.push("minmax(0, 1fr)");
+      if (i < nodes.length - 1) cols.push("auto");
+    });
+    return cols.join(" ");
+  }, [nodes]);
+
   return (
     <>
       <style>{`
@@ -69,29 +80,30 @@ export default function ArchDiagram({ nodes: nodesProp }) {
           color: #6366f1;
         }
 
+        /*
+          Grid instead of flex: rows = [badge] [box] [caption].
+          Grid auto-sizes each ROW to the tallest cell in that row across
+          ALL columns. So every box ends up the same height (as tall as
+          whichever card's text needs the most room) and every caption
+          starts on the exact same line — with zero manual height math
+          and zero text clipping.
+        */
         .arch-row {
           position: relative;
           z-index: 10;
-          display: flex;
-          align-items: flex-start;
+          display: grid;
+          grid-template-rows: auto auto auto;
+          align-items: stretch;
+          column-gap: clamp(4px, 1.5vw, 12px);
+          row-gap: 10px;
           justify-content: center;
-          flex-wrap: nowrap;
-          gap: 0;
-        }
-
-        .arch-node-col {
-          display: flex;
-          flex: 1 1 0;
-          min-width: 0;
-          flex-direction: column;
-          align-items: center;
-          gap: 10px;
         }
 
         .arch-badge-slot {
           height: 24px;
           display: flex;
           align-items: center;
+          justify-content: center;
         }
 
         .arch-badge {
@@ -107,22 +119,26 @@ export default function ArchDiagram({ nodes: nodesProp }) {
           white-space: nowrap;
         }
 
+        /*
+          No fixed height anymore — height:100% fills whatever the grid
+          row decided (see .arch-row comment above). min-height keeps the
+          original compact look when text is short.
+        */
         .arch-node-box {
           width: 100%;
-          max-width: clamp(120px, 22vw, 172px);
-          min-height: clamp(96px, 14vw, 116px);
+          height: 100%;
+          min-height: clamp(116px, 16vw, 132px);
           display: flex;
           flex-direction: column;
+          align-items: center;
           justify-content: center;
-          padding: clamp(12px, 3vw, 18px) clamp(10px, 2.4vw, 14px);
+          padding: clamp(10px, 3vw, 18px) clamp(8px, 2.4vw, 14px);
           border-radius: 16px;
           text-align: center;
           background: #fff;
           border: 1.5px solid rgba(99,102,241,0.13);
           box-shadow: 0 2px 12px rgba(99,102,241,0.05);
           box-sizing: border-box;
-          overflow-wrap: break-word;
-          word-break: break-word;
           transition: transform .3s ease, box-shadow .3s ease, background .4s ease, border-color .4s ease;
         }
         .arch-node-box.lit {
@@ -149,7 +165,9 @@ export default function ArchDiagram({ nodes: nodesProp }) {
         }
         .arch-node-box.lit .arch-icon { background: rgba(99,102,241,0.13); border-color: rgba(99,102,241,0.3); }
 
+        /* Full text always visible now — no line-clamp, no fixed height. */
         .arch-name {
+          width: 100%;
           font-size: clamp(11px, 2.6vw, 12.5px);
           font-weight: 600;
           color: #1e1b4b;
@@ -157,12 +175,12 @@ export default function ArchDiagram({ nodes: nodesProp }) {
           line-height: 1.3;
           overflow-wrap: break-word;
           word-break: break-word;
-          hyphens: auto;
           transition: color .3s;
         }
         .arch-node-box.lit .arch-name { color: #3730a3; }
 
         .arch-mono {
+          width: 100%;
           font-size: clamp(9px, 2.2vw, 10px);
           font-family: monospace;
           color: #94a3b8;
@@ -170,7 +188,6 @@ export default function ArchDiagram({ nodes: nodesProp }) {
           line-height: 1.45;
           overflow-wrap: break-word;
           word-break: break-word;
-          hyphens: auto;
           transition: color .3s;
         }
         .arch-node-box.lit .arch-mono { color: #6366f1; }
@@ -185,13 +202,15 @@ export default function ArchDiagram({ nodes: nodesProp }) {
         }
 
         .arch-arrow-cell {
-          flex: 0 0 auto;
           align-self: center;
-          margin-top: clamp(24px, 5vw, 32px);
           padding: 0 2px;
           display: flex;
           align-items: center;
           justify-content: center;
+        }
+        .arch-arrow-cell svg {
+          width: clamp(20px, 4vw, 52px);
+          height: auto;
         }
 
         .arch-arrow-line { stroke-dasharray: 5 3; transition: stroke .3s; }
@@ -200,37 +219,35 @@ export default function ArchDiagram({ nodes: nodesProp }) {
         .arch-arrow-head { transition: stroke .3s; }
         .arch-arrow-head.lit { stroke: rgba(99,102,241,0.9) !important; }
 
-        /* Stack vertically on narrow screens */
+        /* Stack vertically on narrow screens. Grid placement (gridColumn/
+           gridRow set inline) is simply ignored once display isn't grid,
+           so no extra overrides are needed for that part. */
         @media (max-width: 640px) {
           .arch-row {
+            display: flex;
             flex-direction: column;
             align-items: center;
+            row-gap: 0;
           }
-          .arch-node-col {
+          .arch-badge-slot,
+          .arch-node-box,
+          .arch-caption {
             width: 100%;
             max-width: 260px;
           }
           .arch-node-box {
-            max-width: 100%;
+            height: auto;
             min-height: 0;
           }
           .arch-arrow-cell {
-            margin-top: 0;
             padding: 6px 0;
             transform: rotate(90deg);
           }
           .arch-arrow-line.moving { animation: dashMoveVertical 1s linear infinite; }
         }
 
-        @media (min-width: 641px) and (max-width: 860px) {
-          .arch-node-box { max-width: 128px; min-height: clamp(104px, 18vw, 128px); }
-          .arch-arrow-cell svg { width: 34px; }
-        }
-
         @media (min-width: 861px) and (max-width: 1100px) {
-          .arch-node-box { max-width: 116px; }
           .arch-name { font-size: 10.5px; }
-          .arch-arrow-cell svg { width: 28px; }
         }
       `}</style>
 
@@ -245,40 +262,57 @@ export default function ArchDiagram({ nodes: nodesProp }) {
 
         <p className="arch-eyebrow">Traffic flow</p>
 
-        <div className="arch-row">
-          {nodes.map((node, i) => (
-            <Fragment key={node.id}>
-              {i > 0 && (
-                <div className="arch-arrow-cell">
-                  <svg width="52" height="20" viewBox="0 0 52 20" fill="none">
-                    <line ref={el => lineRefs.current[i-1] = el}
-                      className="arch-arrow-line"
-                      x1="2" y1="10" x2="38" y2="10"
-                      stroke="rgba(99,102,241,0.22)" strokeWidth="1.5"/>
-                    <polyline ref={el => headRefs.current[i-1] = el}
-                      className="arch-arrow-head"
-                      points="33,5 41,10 33,15"
-                      stroke="rgba(99,102,241,0.35)" strokeWidth="1.5"
-                      fill="none" strokeLinejoin="round" strokeLinecap="round"/>
-                  </svg>
+        <div className="arch-row" style={{ gridTemplateColumns }}>
+          {nodes.map((node, i) => {
+            const col = i * 2 + 1; // 1-indexed grid column for this node
+
+            return (
+              <Fragment key={node.id}>
+                {i > 0 && (
+                  <div
+                    className="arch-arrow-cell"
+                    style={{ gridColumn: col - 1, gridRow: 2 }}
+                  >
+                    <svg width="52" height="20" viewBox="0 0 52 20" fill="none">
+                      <line
+                        ref={el => (lineRefs.current[i - 1] = el)}
+                        className="arch-arrow-line"
+                        x1="2" y1="10" x2="38" y2="10"
+                        stroke="rgba(99,102,241,0.22)" strokeWidth="1.5"
+                      />
+                      <polyline
+                        ref={el => (headRefs.current[i - 1] = el)}
+                        className="arch-arrow-head"
+                        points="33,5 41,10 33,15"
+                        stroke="rgba(99,102,241,0.35)" strokeWidth="1.5"
+                        fill="none" strokeLinejoin="round" strokeLinecap="round"
+                      />
+                    </svg>
+                  </div>
+                )}
+
+                <div className="arch-badge-slot" style={{ gridColumn: col, gridRow: 1 }}>
+                  {node.highlight && <span className="arch-badge">PQC Layer</span>}
                 </div>
-              )}
-              <div className="arch-node-col">
-                {node.highlight
-                  ? <span className="arch-badge-slot"><span className="arch-badge">PQC Layer</span></span>
-                  : <div className="arch-badge-slot" />
-                }
-                <div ref={el => nodeRefs.current[i] = el} className="arch-node-box">
+
+                <div
+                  ref={el => (nodeRefs.current[i] = el)}
+                  className="arch-node-box"
+                  style={{ gridColumn: col, gridRow: 2 }}
+                >
                   <div className="arch-icon">
                     <i className={`ti ${node.icon}`} style={{ color:"#4338ca" }} />
                   </div>
                   <div className="arch-name">{node.title}</div>
                   <div className="arch-mono">{node.detail}</div>
                 </div>
-                <span className="arch-caption">{node.label}</span>
-              </div>
-            </Fragment>
-          ))}
+
+                <span className="arch-caption" style={{ gridColumn: col, gridRow: 3 }}>
+                  {node.label}
+                </span>
+              </Fragment>
+            );
+          })}
         </div>
       </div>
     </>
