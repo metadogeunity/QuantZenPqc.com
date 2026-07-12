@@ -19,16 +19,43 @@ function LinkedInIcon(props) {
   );
 }
 
+const footerLinkClass =
+  "block cursor-pointer py-1 text-sm text-slate-600 hover:text-blue transition-colors";
+
+const footerHeadingClass =
+  "mb-3 font-mono text-[11px] tracking-[0.12em] text-slate-400 uppercase";
+
+const ctaButtonClass =
+  "inline-flex items-center px-[18px] py-[9px] rounded-[9px] bg-gradient-to-br from-sky-500 to-indigo-500 !text-white text-[13.5px] font-semibold no-underline whitespace-nowrap border-none cursor-pointer shadow-[0_4px_18px_rgba(99,102,241,0.30),inset_0_1px_0_rgba(255,255,255,0.14)] transition-[transform,box-shadow] duration-[180ms] ease-out hover:shadow-[0_6px_22px_rgba(99,102,241,0.38),inset_0_1px_0_rgba(255,255,255,0.14)]";
+
+const platformLinks = [
+  { label: "Home", to: "/" },
+  { label: "Product", to: "/product" },
+  { label: "Security", to: "/security" },
+  { label: "Deployment", to: "/deployment" },
+];
+
+const companyLinks = [
+  { label: "Use Cases", to: "/use-cases" },
+  { label: "Press Releases", to: "/press" },
+  { label: "About", to: "/about" },
+  { label: "Contact", to: "/contact" },
+];
+
+const legalLinks = [
+  { label: "Privacy Policy", to: "/privacypolicy" },
+  { label: "Terms of Use", to: "/termsofuse" },
+  { label: "Cookie Policy", to: "/cookie" },
+  { label: "Responsible Disclosure", to: "/responsibledisclosurepolicy" },
+  { label: "Export Control Notice", to: "/exportcontrol" },
+];
+
 export default function Footer() {
   return (
     <footer className="bg-white pb-10">
-     
-
       <QDayCountdownSection />
-        
-     
-      <AtomDivider from="#ffffff" to="#ffffff" />
 
+      <AtomDivider from="#ffffff" to="#ffffff" />
 
       <Wrap>
         <div className="flex flex-wrap items-start justify-between gap-7.5 pt-[54px]">
@@ -55,37 +82,40 @@ export default function Footer() {
 
           <div className="flex flex-wrap gap-[50px]">
             <div>
-              <h5 className="mb-3 font-mono text-[11px] tracking-[0.12em] text-slate-400 uppercase">Platform</h5>
-              <Link className="block cursor-pointer py-1 text-sm text-slate-600 hover:text-blue" to="/product">Product</Link>
-              <Link className="block cursor-pointer py-1 text-sm text-slate-600 hover:text-blue" to="/security">Security</Link>
-              <Link className="block cursor-pointer py-1 text-sm text-slate-600 hover:text-blue" to="/deployment">Deployment</Link>
-            </div>
-            <div>
-              <h5 className="mb-3 font-mono text-[11px] tracking-[0.12em] text-slate-400 uppercase">Company</h5>
-              <Link className="block cursor-pointer py-1 text-sm text-slate-600 hover:text-blue" to="/use-cases">Use Cases</Link>
-              <Link className="block cursor-pointer py-1 text-sm text-slate-600 hover:text-blue" >Privacy policy</Link>
-              <Link className="block cursor-pointer py-1 text-sm text-slate-600 hover:text-blue" >Terms of use</Link>
-            </div>
-            <div>
-              <h5 className="mb-3 font-mono text-[11px] tracking-[0.12em] text-slate-400 uppercase">Engage</h5>
-              <div>
-                <Link  className="inline-flex items-center px-[18px] py-[9px] ml-2 rounded-[9px] bg-gradient-to-br from-sky-500 to-indigo-500 !text-white text-[13.5px] font-semibold no-underline whitespace-nowrap border-none cursor-pointer shadow-[0_4px_18px_rgba(99,102,241,0.30),inset_0_1px_0_rgba(255,255,255,0.14)] transition-[transform,box-shadow] duration-[180ms] ease-out" to="/contact">
-                  Request a demo
+              <h5 className={footerHeadingClass}>Platform</h5>
+              {platformLinks.map((link) => (
+                <Link key={link.label} className={footerLinkClass} to={link.to}>
+                  {link.label}
                 </Link>
+              ))}
+            </div>
 
+            <div>
+              <h5 className={footerHeadingClass}>Company</h5>
+              {companyLinks.map((link) => (
+                <Link key={link.label} className={footerLinkClass} to={link.to}>
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+
+            <div>
+              <h5 className={footerHeadingClass}>Legal</h5>
+              {legalLinks.map((link) => (
+                <Link key={link.label} className={footerLinkClass} to={link.to}>
+                  {link.label}
+                </Link>
+              ))}
+            </div>
+
+            <div>
+              <h5 className={footerHeadingClass}>Engage</h5>
+              <div className="flex flex-col gap-2.5">
+                <Link className={ctaButtonClass} to="/contact">
+                  Contact us
+                </Link>
               </div>
-               <div className="pt-2">
-              <Link  className="inline-flex items-center px-[18px] py-[9px] ml-2 rounded-[9px] bg-gradient-to-br from-sky-500 to-indigo-500 !text-white text-[13.5px] font-semibold no-underline whitespace-nowrap border-none cursor-pointer shadow-[0_4px_18px_rgba(99,102,241,0.30),inset_0_1px_0_rgba(255,255,255,0.14)] transition-[transform,box-shadow] duration-[180ms] ease-out" to="/contact">
-              Contact us
-            </Link>
-
             </div>
-              
-            
-              
-            </div>
-           
-            
           </div>
         </div>
 

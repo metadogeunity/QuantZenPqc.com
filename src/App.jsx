@@ -9,6 +9,11 @@ import Press from "./pages/Press";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
 import WhyNow from "./pages/Whynow";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfUse from "./pages/TermsOfUse";
+import CookiePolicy from "./pages/CookiePolicy";
+import ResponsibleDisclosurePolicy from "./pages/ResponsibleDisclosurePolicy";
+import ExportControl from "./pages/ExportControl";
 
 export default function App() {
   return (
@@ -23,6 +28,11 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/whynow" element={<WhyNow />} />
+        <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+        <Route path="/termsofuse" element={<TermsOfUse />} />
+         <Route path="/cookie" element={<CookiePolicy />} />
+          <Route path="/responsibledisclosurepolicy" element={<ResponsibleDisclosurePolicy />} />
+          <Route path="/exportcontrol" element={<ExportControl />} />
         {/* Fallback: unknown routes redirect to the home page content */}
         <Route path="*" element={<Home />} />
       </Route>
