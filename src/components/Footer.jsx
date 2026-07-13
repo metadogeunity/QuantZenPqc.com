@@ -74,7 +74,7 @@ export default function Footer() {
               <a href="https://x.com/quant_zen" target="_blank" rel="noopener noreferrer" aria-label="QuantZen on X" className="grid h-8 w-8 place-items-center rounded-full border-[1.5px] border-slate-200 text-slate-500 transition-colors hover:border-blue hover:text-blue">
                 <XIcon />
               </a>
-              <a href="https://www.linkedin.com/company/quantix09/" target="_blank" rel="noopener noreferrer" aria-label="QuantZen on LinkedIn" className="grid h-8 w-8 place-items-center rounded-full border-[1.5px] border-slate-200 text-slate-500 transition-colors hover:border-blue hover:text-blue">
+              <a href="https://www.linkedin.com/company/quantzen009/" target="_blank" rel="noopener noreferrer" aria-label="QuantZen on LinkedIn" className="grid h-8 w-8 place-items-center rounded-full border-[1.5px] border-slate-200 text-slate-500 transition-colors hover:border-blue hover:text-blue">
                 <LinkedInIcon />
               </a>
             </div>
@@ -120,7 +120,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 flex flex-wrap justify-between gap-4 border-t border-slate-200 pt-5.5 font-mono text-[12.5px] text-slate-500">
-          <span>© 2025 Zenith Studio LLC. All Rights Reserved. QuantZen™ developed by Zenith Studio LLC are registered trademarks licensed under the Government of Ras Al Khaimah, United Arab Emirates. All content, including but not limited to text, code, software, graphics, trademarks, visual identity, SDK , Logo documentation, and digital assets, is the exclusive intellectual property of Zenith Studio LLC. Unauthorised reproduction, distribution, modification, reverse engineering, or republication, in whole or in part, without prior written permission, is strictly prohibited and may result in legal action under applicable UAE Federal Copyright Law No. 7 of 2002 (as amended) and relevant international treaties.</span>
+          <span>© 2026 Zenith Studio LLC. All Rights Reserved. QuantZen™ developed by Zenith Studio LLC are registered trademarks licensed under the Government of Ras Al Khaimah, United Arab Emirates. All content, including but not limited to text, code, software, graphics, trademarks, visual identity, SDK , Logo documentation, and digital assets, is the exclusive intellectual property of Zenith Studio LLC. Unauthorised reproduction, distribution, modification, reverse engineering, or republication, in whole or in part, without prior written permission, is strictly prohibited and may result in legal action under applicable UAE Federal Copyright Law No. 7 of 2002 (as amended) and relevant international treaties.</span>
           <span> Patent filed application no : 202641078837</span>
         </div>
       </Wrap>

@@ -5,7 +5,7 @@ import { navLinks } from "../data/navLinks";
 
 const SOCIAL_LINKS = {
   x: "https://x.com/quant_zen",
-  linkedin: "https://www.linkedin.com/company/quantix09/",
+  linkedin: "https://www.linkedin.com/company/quantzen009/",
 };
 
 function XIcon() {
