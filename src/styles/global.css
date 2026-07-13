@@ -1,0 +1,115 @@
+@import "tailwindcss";
+
+
+@theme {
+  --color-ink: #080B16;
+  --color-ink2: #0B1020;
+  --color-panel: #111829;
+  --color-panel2: #162038;
+  --color-raise: #1B2742;
+  --color-line: #222C46;
+  --color-line2: #2E3A5A;
+
+  --color-text: #EAEEF8;
+  --color-muted: #9AA6C2;
+  --color-faint: #69748F;
+
+  --color-blue: #5C9DFF;
+  --color-blue-hover: #7ab0ff;
+  --color-blue2: #3B79E6;
+  --color-teal: #2FD6B6;
+  --color-amber: #F2A63B;
+  --color-rose: #F2607A;
+
+  --font-disp: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --container-wrap: 1180px;
+
+  --animate-fade: fade 0.4s ease;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background: var(--color-ink);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a {
+    color: inherit;
+  }
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-disp);
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
+  }
+  ::selection {
+    background: rgba(92, 157, 255, 0.3);
+  }
+}
+
+@layer components {
+  .qmark::after {
+    content: "";
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    border: 1.5px solid var(--color-blue);
+    border-radius: 50%;
+    border-bottom-color: transparent;
+    transform: rotate(45deg);
+  }
+
+.eyebrow::before {
+  content: "";
+  width: 18px;
+  height: 1px;
+  background: var(--color-blue);
+  display: inline-block;
+  opacity: 0.7;
+}
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+
+
+
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}

@@ -1,28 +1,30 @@
-# Environment files
-**/.vite
+# Environment
 **/.env
 **/.env.local
 **/.env.production
 **/.env.development
 
-# Node modules
+# Dependencies
 **/node_modules
 
-# Build folders
+# Build output
 **/dist
 **/build
+
+# Vite cache
+**/.vite
 
 # Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# OS files
+# Editor
+.vscode
+
+# OS
 .DS_Store
 Thumbs.db
-
-# VS Code
-.vscode
 
 # Coverage
 coverage
